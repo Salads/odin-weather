@@ -31,4 +31,4 @@ function generateForecastHTML(dataDay) {
 	`;
 }
 
-export { generateForecastHTML };
+export { generateForecastHTML, getQuotedImagePath };
