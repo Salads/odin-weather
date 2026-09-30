@@ -44,7 +44,8 @@ class VisualCrossingAPI extends WeatherAPI {
 			currentDayJSON.temp,
 			currentDayJSON.feelslike,
 			currentDayJSON.humidity,
-			currentDayJSON.conditions
+			currentDayJSON.conditions,
+			currentDayJSON.icon
 		);
 
 		for(let jsonForecastDay of responseJSON.days) {
@@ -53,7 +54,8 @@ class VisualCrossingAPI extends WeatherAPI {
 				jsonForecastDay.temp,
 				jsonForecastDay.feelslike,
 				jsonForecastDay.humidity,
-				jsonForecastDay.conditions
+				jsonForecastDay.conditions,
+				jsonForecastDay.icon
 			);
 		}
 

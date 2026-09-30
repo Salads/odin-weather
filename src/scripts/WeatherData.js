@@ -4,18 +4,18 @@ class WeatherData {
 	#current;
 	#forecasts = [];
 
-	setCurrentDay(dateTime, temperature, feelslike, humidity, conditions) {
-		this.#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions);
-		this.current = new WeatherDataDay(dateTime, temperature, feelslike, humidity, conditions);
+	setCurrentDay(dateTime, temperature, feelslike, humidity, conditions, icon) {
+		this.#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions, icon);
+		this.current = new WeatherDataDay(dateTime, temperature, feelslike, humidity, conditions, icon);
 	}
 
 	getCurrentDay() {
 		return structuredClone(this.#current);
 	}
 
-	emplaceForecast(dateTime, temperature, feelslike, humidity, conditions) {
-		this.#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions);
-		this.#forecasts.push(new WeatherDataDay(dateTime, temperature, feelslike, humidity, conditions));
+	emplaceForecast(dateTime, temperature, feelslike, humidity, conditions, icon) {
+		this.#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions, icon);
+		this.#forecasts.push(new WeatherDataDay(dateTime, temperature, feelslike, humidity, conditions, icon));
 	}
 
 	getForecastAt(idx) {
@@ -26,7 +26,7 @@ class WeatherData {
 		return this.#forecasts.length;
 	}
 
-	#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions) {
+	#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions, icon) {
 		if(dateTime?.constructor !== String) {
 			throw new Error("dateTime is not a String!")
 		}
@@ -45,6 +45,10 @@ class WeatherData {
 
 		if(conditions?.constructor !== String) {
 			throw new Error("conditions is not a String!")
+		}
+
+		if(icon?.constructor !== String) {
+			throw new Error("icon is not a String!")
 		}
 	}
 }
