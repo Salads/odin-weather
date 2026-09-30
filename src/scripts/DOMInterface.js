@@ -18,18 +18,20 @@ class DOMInterface extends EventfulObject {
 		forcastsContainer : document.getElementById("forecasts-container"),
 	}
 
+	#unit = "f";
+
 	constructor() {
 		super();
 
 		this.#ui.fButton.addEventListener("input", (e) => {
 			if(this.#ui.fButton.checked) {
-				this.emit("unitChanged", "f");
+				this.#unit = "f";
 			}
 		});
 
 		this.#ui.cButton.addEventListener("input", (e) => {
 			if(this.#ui.cButton.checked) {
-				this.emit("unitChanged", "c");
+				this.#unit = "c";
 			}
 		});
 
@@ -39,16 +41,24 @@ class DOMInterface extends EventfulObject {
 				this.emit("search", locationText);
 			}
 		});
+
+		// One-time unit update.
+		if(this.#ui.fButton.checked) {
+			this.#unit = "f";
+		}
+		else if (this.#ui.cButton.checked ){
+			this.#unit = "c";
+		}
 	}
 
-	update(location, weatherData, unit) {
+	update(location, weatherData) {
 		let currentData = weatherData.getCurrentDay();
 		this.#clearForecasts();
 
 		let curTemp = currentData.getTemperature();
 		let curFeel = currentData.getFeelsLike();
 
-		if(unit === "c") {
+		if(this.#unit === "c") {
 			curTemp = (5.0 / 9.0)*(curTemp - 32);
 			curFeel = (5.0 / 9.0)*(curFeel - 32);
 		}
