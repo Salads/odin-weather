@@ -2,8 +2,32 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>Odin: Weather App</title>
 	</head>
 	<body>
+		<div class="app-container">
+			<div class="app-header">
+				<input id="search-bar" type="text" placeholder="Search for City...">
+				<button id="search-button">Search</button>
+			</div>
+			<div id="app-contents">
+				<div class="current-temperature-container">
+					<p id="current-city-name">City Name</p>
+					<p id="current-temperature">85</p>
+					<p id="current-feels-like">76</p>
+					<div class="condition-container">
+						<img id="condition-img">
+						<p id="condition-label"></p>
+					</div>
+					<div class="temperature-formats">
+						<button id="button-fahrenheit">F</button>
+						<button id="button-celsius">C</button>
+					</div>
+				</div>
+				<div id="forecasts-container">
+
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
