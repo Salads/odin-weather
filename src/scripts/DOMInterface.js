@@ -25,13 +25,23 @@ class DOMInterface extends EventfulObject {
 
 		this.#ui.fButton.addEventListener("input", (e) => {
 			if(this.#ui.fButton.checked) {
+				let oldUnit = this.#unit;
 				this.#unit = "f";
+
+				if(oldUnit !== this.#unit) {
+					this.emit("unitChanged");
+				}
 			}
 		});
 
 		this.#ui.cButton.addEventListener("input", (e) => {
 			if(this.#ui.cButton.checked) {
+				let oldUnit = this.#unit;
 				this.#unit = "c";
+
+				if(oldUnit !== this.#unit) {
+					this.emit("unitChanged");
+				}
 			}
 		});
 
@@ -79,6 +89,10 @@ class DOMInterface extends EventfulObject {
 			let forecast = weatherData.getForecastAt(i);
 			this.#addForecast(forecast);
 		}
+	}
+
+	getLocationSearch() {
+		return this.#ui.searchBar.value.trim();
 	}
 
 	#clearForecasts() {
