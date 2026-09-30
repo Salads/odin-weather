@@ -1,37 +1,182 @@
+@import url("./styles-text.css");
+
 body {
 	padding: 0;
 	margin: 0;
 	background-color: rgb(43, 209, 209);
 
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 
 .app-container {
-	width: 450px;
-	height: 500px;
-
-	background-color: azure;
-
 	display: flex;
 	flex-direction: column;
+	width: fit-content;
+	margin: 64px;
+	background-color: aqua;
+	border-radius: 15px;
 }
 
 .app-header {
+	padding: 16px;
+	border-bottom: 1px solid gray;
+}
+
+#search-bar {
+	font-family: "Sulphur Point";
+	font-size: 1.25rem;
+	text-indent: 25px;
+	height: 3rem;
+	width: 500px;
+	border: 1px solid gray;
+	outline: none;
+	border-radius: 50px;
+}
+
+#search-button {
+	font-family: "Sulphur Point";
+	font-size: 1.25rem;
+	padding: 10px 15px;
+	border: 1px solid gray;
+	border-radius: 8px;
+	box-shadow: 2px 2px 5px gray;
+	background-color: #F0F0F0;
+	transition: box-shadow 0.1s, background-color 0.1s;
+
+	&:hover {
+		background-color: white;
+		box-shadow: 2px 6px 12px gray;
+	}
+
+	&:active {
+		box-shadow: none;
+	}
+}
+
+#app-contents {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 32px;
+	padding: 64px;
+}
+
+.current-temperature-container {
+	border-bottom: 1px solid gray;
+	padding-bottom: 64px;
+}
+
+.current-details-container,
+.forecast-details-container {
 	display: flex;
 	flex-direction: row;
+	gap: 8px;
 	justify-content: center;
+
+	& > span {
+		position: relative;
+		display: flex;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+	}
+
+	& > span:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		right: -2px;
+		top: 15%;
+		width: 2px;
+		height: 75%;
+		background-color:gray;
+	}
+}
+
+.condition-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 4px;
+}
+
+img {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.temperature-formats {
+	display: flex;
+	flex-direction: row;
+	justify-self: center;
+	width: fit-content;
+
+	background-color: rgb(166, 166, 175);
+	border-radius: 50px;
+	margin: 10px auto 0;
+}
+
+.temperature-formats input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.temperature-formats label {
+	padding: 5px 20px;
+	min-width: 20px;
+	color: white;
+	font-size: 1.5rem;
+	cursor: pointer;
+	text-align: center;
+}
+
+#unit-fahrenheit {
+	& + label {
+		border-radius: 50px 0 0 50px;
+	}
+
+	&:not(:checked) + label {
+		box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.4);
+		transition: color 0.4s, background-color 0.4s;
+	}
+}
+
+#unit-celsius {
+	& + label {
+		border-radius: 0 50px 50px 0;
+	}
+
+	&:not(:checked) + label {
+		box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.4);
+		transition: color 0.4s, background-color 0.4s;
+	}
+}
+
+.temperature-formats input:checked + label {
+	background-color: white;
+	color: rgb(166, 166, 175);
+	transition: color 0.4s, background-color 0.4s;
+}
+
+.temperature-formats input:focus-visible + label {
+	outline: 2px solid white;
+	outline-offset: -2px;
+	transition: color 0.4s, background-color 0.4s;
+}
+
+#forecasts-container {
+	display: flex;
+	flex-direction: row;
 	gap: 16px;
 }
 
-.app-contents {
-
-}
-
-.current-city {
+.forecast-container {
 	display: flex;
 	flex-direction: column;
-	gap: 32px;
+	background-color: rgba(255, 255, 255, 0.664);
+	border-radius: 10px;
+	padding: 16px;
 }
 

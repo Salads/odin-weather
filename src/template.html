@@ -3,6 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Odin: Weather App</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@300;400;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<div class="app-container">
@@ -15,28 +19,34 @@
 					<p id="current-city-name">City Name</p>
 					<p id="current-temperature">85f</p>
 					<div class="current-details-container">
-						<p id="current-feels-like">76f</p>
-						<p id="current-humidity">45h</p>
+						<p id="current-feels-like">Feels Like: 76f</p>
+						<span></span>
+						<p id="current-humidity">Humidity: 45h</p>
+						<span></span>
 						<div class="condition-container">
 							<p id="condition-label">Snowy</p>
-							<img id="current-condition-img">
+							<img id="current-condition-img" src="assets/snow.png">
 						</div>
 					</div>
 					<div class="temperature-formats">
-						<button id="button-fahrenheit">F</button>
-						<button id="button-celsius">C</button>
+						<input type="radio" name="temp-unit" id="unit-fahrenheit" checked>
+						<label for="unit-fahrenheit">F</label>
+						<input type="radio" name="temp-unit" id="unit-celsius">
+						<label for="unit-celsius">C</label>
 					</div>
 				</div>
 				<div id="forecasts-container">
-					<div class="forcast-container">
+					<div class="forecast-container">
 						<p class="forecast-day-text">Mon</p>
 						<p class="forecast-temp-text">88f</p>
 						<div class="forecast-details-container">
 							<p class="forecast-feelslike">74f</p>
+							<span></span>
 							<p class="forecast-humidity">30</p>
-							<div class=forecast-condition-container>
+							<span></span>
+							<div class=condition-container>
 								<p class="forecast-condition-text">Cloudy</p>
-								<img class="forecast-condition-img">
+								<img class="forecast-condition-img" src="assets/fog.png">
 							</div>
 						</div>
 					</div>
