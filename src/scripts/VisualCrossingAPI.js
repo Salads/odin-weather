@@ -38,19 +38,25 @@ class VisualCrossingAPI extends WeatherAPI {
 			condition -> "conditions" (single string)
 		*/
 		let result = new WeatherData();
-		result.setCurrentDay(this.#getDataDay(responseJSON.currentConditions));
-		for(let jsonForecastDay of responseJSON.days) {
-			result.addForecast(this.#getDataDay(jsonForecastDay));
-		}
-	}
+		let currentDayJSON = responseJSON.currentConditions;
+		result.setCurrentDay(
+			currentDayJSON.dateTime,
+			currentDayJSON.temp,
+			currentDayJSON.feelslike,
+			currentDayJSON.humidity,
+			currentDayJSON.conditions
+		);
 
-	#getDataDay(json) {
-		let result = new WeatherDataDay();
-		result.dateTime = json.datetime;
-		result.temperature = json.temp;
-		result.feelsLike = json.feelslike;
-		result.humidity = json.humidity;
-		result.conditions = json.conditions;
+		for(let jsonForecastDay of responseJSON.days) {
+			result.emplaceForecast(
+				jsonForecastDay.dateTime,
+				jsonForecastDay.temp,
+				jsonForecastDay.feelslike,
+				jsonForecastDay.humidity,
+				jsonForecastDay.conditions
+			);
+		}
+
 		return result;
 	}
 
