@@ -18,6 +18,7 @@ class WeatherApp {
 			try {
 				this.#weatherData = await this.#weatherAPI.fetchData(event.data);
 				this.#dom.update(event.data, this.#weatherData);
+				this.#dom.revealContents();
 			}
 			catch(error) {
 				console.error(`Search failed: ${error.message}`);

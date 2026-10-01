@@ -19,6 +19,7 @@ class DOMInterface extends EventfulObject {
 	}
 
 	#unit = "f";
+	#contentsVisible = false;
 
 	constructor() {
 		super();
@@ -95,6 +96,22 @@ class DOMInterface extends EventfulObject {
 
 	getLocationSearch() {
 		return this.#ui.searchBar.value.trim();
+	}
+
+	revealContents() {
+		if(this.#contentsVisible) {
+			return;
+		}
+		this.#contentsVisible = true;
+
+		this.#ui.appContents.classList.remove("is-hidden");
+		this.#ui.appContents.classList.add("is-entering");
+
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				this.#ui.appContents.classList.remove("is-entering");
+			});
+		});
 	}
 
 	#clearForecasts() {
