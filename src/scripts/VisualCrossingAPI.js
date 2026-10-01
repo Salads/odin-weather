@@ -7,23 +7,19 @@ const ODIN_TOLD_ME_TO = "2CLWJ496AU9RG4SSJGBWT2NJZ";
 class VisualCrossingAPI extends WeatherAPI {
 
 	async fetchData(location) {
-		try {
-			const response = await fetch(this.#getQueryString(location));
-			if(!response.ok) {
-				throw new Error(`Response not ok: ${response.status}`);
-			}
-
-			const responseJSON = await response.json();
-			console.log(result);
-
-			return this.#getWeatherDataFromResponse(responseJSON);
+		const response = await fetch(this.#getQueryString(location));
+		
+		if(!response.ok) {
+			throw new Error(`Response not ok: ${response.status}`);
 		}
-		catch (error) {
-			console.error(error.message);
-		}
+
+		const responseJSON = await response.json();
+		console.log(responseJSON);
+
+		return this.#getWeatherDataFromResponse(responseJSON, location);
 	}
 
-	#getWeatherDataFromResponse(responseJSON) {
+	#getWeatherDataFromResponse(responseJSON, locationName) {
 		/*
 			NOTE(Salads): VisualCrossingAPI JSON Fields
 
@@ -37,10 +33,10 @@ class VisualCrossingAPI extends WeatherAPI {
 			humidity -> "humidity"
 			condition -> "conditions" (single string)
 		*/
-		let result = new WeatherData();
+		let result = new WeatherData(locationName);
 		let currentDayJSON = responseJSON.currentConditions;
 		result.setCurrentDay(
-			currentDayJSON.dateTime,
+			currentDayJSON.datetime,
 			currentDayJSON.temp,
 			currentDayJSON.feelslike,
 			currentDayJSON.humidity,
@@ -50,7 +46,7 @@ class VisualCrossingAPI extends WeatherAPI {
 
 		for(let jsonForecastDay of responseJSON.days) {
 			result.emplaceForecast(
-				jsonForecastDay.dateTime,
+				jsonForecastDay.datetime,
 				jsonForecastDay.temp,
 				jsonForecastDay.feelslike,
 				jsonForecastDay.humidity,
@@ -63,7 +59,7 @@ class VisualCrossingAPI extends WeatherAPI {
 	}
 
 	#getQueryString(location) {
-		return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/next7days?unitGroup=us&include=days%2Ccurrent&key=${ODIN_TOLD_ME_TO}&contentType=json`;
+		return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}/next7days?unitGroup=us&include=days%2Ccurrent&key=${ODIN_TOLD_ME_TO}&contentType=json`;
 	}
 
 }

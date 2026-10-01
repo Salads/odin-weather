@@ -14,17 +14,20 @@ class WeatherApp {
 		this.#weatherAPI = weatherAPI;
 		this.#dom = new DOMInterface();
 
-		this.#dom.addEventListener("search", async (locationText) => {
-			this.#weatherData = await this.#weatherAPI.fetchData(locationText);
-			this.#dom.update(locationText, this.#weatherData);
+		this.#dom.addEventListener("search", async (event) => {
+			try {
+				this.#weatherData = await this.#weatherAPI.fetchData(event.data);
+				this.#dom.update(event.data, this.#weatherData);
+			}
+			catch(error) {
+				console.error(`Search failed: ${error.message}`);
+			}
 		});
 
 		this.#dom.addEventListener("unitChanged", () => {
-			if(!this.#weatherData) {
-				throw new Error("Unit Changed but no weather data!");
+			if(this.#weatherData) {
+				this.#dom.update(this.#weatherData.getLocationName(), this.#weatherData);
 			}
-
-			this.#dom.update(this.#dom.getLocationSearch(), this.#weatherData);
 		});
 	}
 

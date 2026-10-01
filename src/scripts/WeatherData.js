@@ -4,13 +4,27 @@ class WeatherData {
 	#current;
 	#forecasts = [];
 
+	#locationName;
+
+	constructor(locationName) {
+		if(locationName?.constructor !== String) {
+			throw new Error("locationName was not a String!");
+		}
+
+		this.#locationName = locationName;
+	}
+
+	getLocationName() {
+		return this.#locationName;
+	}
+
 	setCurrentDay(dateTime, temperature, feelslike, humidity, conditions, icon) {
 		this.#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions, icon);
-		this.current = new WeatherDataDay(dateTime, temperature, feelslike, humidity, conditions, icon);
+		this.#current = new WeatherDataDay(dateTime, temperature, feelslike, humidity, conditions, icon);
 	}
 
 	getCurrentDay() {
-		return structuredClone(this.#current);
+		return this.#current.getClone();
 	}
 
 	emplaceForecast(dateTime, temperature, feelslike, humidity, conditions, icon) {
@@ -19,7 +33,7 @@ class WeatherData {
 	}
 
 	getForecastAt(idx) {
-		structuredClone(this.#forecasts[idx]);
+		return this.#forecasts[idx].getClone();
 	}
 
 	getNumForecasts() {

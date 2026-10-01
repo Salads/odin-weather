@@ -9,7 +9,7 @@ class WeatherDataDay {
 
 	constructor(dateTime, temperature, feelslike, humidity, conditions, icon) {
 		this.#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions, icon);
-		this.#dateTime = dateTime,
+		this.#dateTime = dateTime;
 		this.#temperature = temperature;
 		this.#feelsLike = feelslike;
 		this.#humidity = humidity;
@@ -39,6 +39,17 @@ class WeatherDataDay {
 
 	getIcon() {
 		return this.#icon;
+	}
+
+	getClone() {
+		return new WeatherDataDay(
+			this.#dateTime, 
+			this.#temperature, 
+			this.#feelsLike, 
+			this.#humidity, 
+			this.#conditions, 
+			this.#icon
+		);
 	}
 
 	#assertWeatherDayData(dateTime, temperature, feelslike, humidity, conditions, icon) {

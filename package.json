@@ -4,7 +4,8 @@
   "description": "- `npm init --yes`\r - `npm install --save-dev webpack webpack-cli html-webpack-plugin style-loader css-loader html-loader webpack-dev-server webpack-merge`",
   "main": "webpack.common.js",
   "scripts": {
-    "dev" : "webpack serve --config webpack.dev.js"
+    "dev" : "webpack serve --config webpack.dev.js",
+    "build" : "webpack --config webpack.dev.js"
   },
   "repository": {
     "type": "git",

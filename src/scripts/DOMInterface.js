@@ -1,5 +1,5 @@
 import { EventfulObject } from "./EventfulObject.js";
-import { generateForecastHTML, getQuotedImagePath } from "./generators/GenForecastDOM.js";
+import { generateForecastHTML, getImagePath } from "./generators/GenForecastDOM.js";
 
 class DOMInterface extends EventfulObject {
 	
@@ -69,8 +69,8 @@ class DOMInterface extends EventfulObject {
 		let curFeel = currentData.getFeelsLike();
 
 		if(this.#unit === "c") {
-			curTemp = (5.0 / 9.0)*(curTemp - 32);
-			curFeel = (5.0 / 9.0)*(curFeel - 32);
+			curTemp = Math.round((5.0 / 9.0)*(curTemp - 32));
+			curFeel = Math.round((5.0 / 9.0)*(curFeel - 32));
 		}
 
 		this.#ui.currentCityName.innerHTML = location;
@@ -81,11 +81,13 @@ class DOMInterface extends EventfulObject {
 			.innerHTML = `Humidity: ${currentData.getHumidity()}%`;
 		this.#ui.currentConditionLabel
 			.innerHTML = `${currentData.getConditions()}`;
-		this.#ui.currentConditionImg.src = `${getQuotedImagePath(currentData.getIcon())}`;
+		this.#ui.currentConditionImg.src = `${getImagePath(currentData.getIcon())}`;
 
 		// Create Forecasts
 		let nForecasts = weatherData.getNumForecasts();
-		for(let i = 0; i < nForecasts; i++) {
+		let maxForecasts = Math.min(5, nForecasts);
+
+		for(let i = 1; i < nForecasts && i <= maxForecasts; i++) {
 			let forecast = weatherData.getForecastAt(i);
 			this.#addForecast(forecast);
 		}
@@ -100,7 +102,7 @@ class DOMInterface extends EventfulObject {
 	}
 
 	#addForecast(weatherDataDay) {
-		let html = generateForecastHTML(weatherDataDay);
+		let html = generateForecastHTML(weatherDataDay, this.#unit);
 		let range = document.createRange();
 		let fragment = range.createContextualFragment(html);
 		this.#ui.forcastsContainer.appendChild(fragment);
