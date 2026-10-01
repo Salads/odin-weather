@@ -108,9 +108,7 @@ class DOMInterface extends EventfulObject {
 		this.#ui.appContents.classList.add("is-entering");
 
 		requestAnimationFrame(() => {
-			requestAnimationFrame(() => {
-				this.#ui.appContents.classList.remove("is-entering");
-			});
+			this.#ui.appContents.classList.remove("is-entering");
 		});
 	}
 
