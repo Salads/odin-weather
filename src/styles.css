@@ -88,6 +88,7 @@ body {
 	flex-direction: row;
 	gap: 8px;
 	justify-content: center;
+	align-items: center;
 
 	& > span {
 		position: relative;
@@ -95,15 +96,16 @@ body {
 		text-align: center;
 		justify-content: center;
 		align-items: center;
+		height: 1.5rem;
 	}
 
 	& > span:not(:last-child)::after {
 		content: '';
 		position: absolute;
 		right: -2px;
-		top: 15%;
+		top: 0;
 		width: 2px;
-		height: 75%;
+		height: 100%;
 		background-color:gray;
 	}
 }
